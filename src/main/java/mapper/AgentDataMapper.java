@@ -17,8 +17,7 @@ public class AgentDataMapper extends Mapper<LongWritable, Text, Text, TotalAndCo
     @Override
     protected void map(LongWritable  key, Text value, Context context) throws IOException, InterruptedException {
         LogLineMatcher logLineMatcher = new LogLineMatcher();
-        String line = value.toString();
-        logLineMatcher.matchLine(line);
+        logLineMatcher.matchLine(value.toString());
 
         String br =UserAgent.parseUserAgentString(logLineMatcher.getUserAgent()).getBrowser().getGroup().getName();
         Browsers browsers = Browsers.find(br);
@@ -27,8 +26,6 @@ public class AgentDataMapper extends Mapper<LongWritable, Text, Text, TotalAndCo
         String ip =logLineMatcher.getIp();
         Long bytes=logLineMatcher.getBytes();
         if(ip!=null && bytes!=null) context.write(new Text(ip),new TotalAndCount(bytes.longValue(),one));
-
-
 
 
     }
