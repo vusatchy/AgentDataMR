@@ -12,6 +12,7 @@ import utils.LogLineMatcher;
 import java.io.IOException;
 
 public class AgentDataMapper extends Mapper<LongWritable, Text, Text, TotalAndCount> {
+
      private final int one=1;
 
     @Override
